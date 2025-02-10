@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <title>Valentine's Special</title>
+    <style>
+        body {
+            display: flex;
+            background: linear-gradient(to right, #7F00FF, #E100FF);
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            padding: 10px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: rgb(208, 71, 94);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border: 5px ridge orange;
+            font-size: 16px;
+            color: white;
+        }
+
+        button {
+            padding: 8px 15px;
+            font-size: 16px;
+            background: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .final-page {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+            padding: 10px;
+        }
+
+        .heart {
+            font-size: 100px;
+            color: red;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .message {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-top: 10px;
+            font-family: 'Great Vibes', cursive;
+            text-align: center;
+        }
+
+        .falling-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .falling-heart {
+            position: absolute;
+            color: red;
+            font-size: 20px;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            from { transform: translateY(-100px); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 10px;
+            border: 3px ridge red;
+        }
+
+        .fall {
+    position: relative;
+    color: rgb(220, 128, 143);
+    animation: fallAnimation 5s ease-in-out forwards;
+}
+
+@keyframes fallAnimation {
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="container" id="question-container">
+            <div class="pic">
+                <img src="teddy2.jpg" alt="">
+            </div>
+            <p id="question">As the Valentine's week is going, I have something special for you, my heart. Let's Start</p>
+            <button onclick="nextQuestion()">Yes</button>
+        </div>
+    </div>
+
+    <div class="final-page" id="final-page">
+        <div class="falling-hearts" id="falling-hearts"></div>
+        <div class="fall">
+        <div class="message">Happy Valentine's, Dear ❤️</div>
+        <div class="ours">
+            <img src="WhatsApp Image 2025-02-10 at 3.09.35 PM (1).jpeg" alt="Your Image">
+            <span class="heart">❤️</span>
+            <img src="WhatsApp Image 2025-02-10 at 3.15.13 PM.jpeg" alt="Partner Image">
+        </div>
+        </div>
+        <audio id="bg-music" loop>
+            <source src="WhatsApp Audio 2025-02-10 at 3.32.26 PM.mpeg" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script>
+        const questions = [
+            "I want to be your teddy on Teddy Day, but I want a rose in my life. Would you like to be my rose?",
+            "I promise I will never leave you if you support me like this and always be mine. I will always be there for you, my jaan. Would you like to be my jaan?",
+            "I want to be your Kit Kat, and you my Valentine this time. Would you like to be my Valentine?"
+        ];
+        let index = 0;
+
+        function nextQuestion() {
+            if (index < questions.length) {
+                document.getElementById('question').innerText = questions[index];
+                index++;
+            } else {
+                document.getElementById('question-container').style.display = 'none';
+                document.getElementById('final-page').style.display = 'flex';
+                let audio = document.getElementById("bg-music");
+                audio.play().catch(error => console.log("Autoplay blocked:", error));
+                createFallingHearts();
+            }
+        }
+
+        function createFallingHearts() {
+            const container = document.getElementById("falling-hearts");
+            for (let i = 0; i < 30; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("falling-heart");
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+                container.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
